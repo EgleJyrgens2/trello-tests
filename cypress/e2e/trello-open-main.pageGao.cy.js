@@ -2,7 +2,7 @@ import BoardPage from "../pages/BoardPage";
 import Boards from "../pages/Boards";
 import LoginPage from "../pages/LoginPage";
 
-describe('Test on Trello board', () => {
+describe('Test of Gao on Trello board', () => {
 
     //This board was created before manually through the UI
     //those constants will be different for each user
