@@ -2,12 +2,12 @@ import BoardPage from "../pages/BoardPage";
 import Boards from "../pages/Boards";
 import LoginPage from "../pages/LoginPage";
 
-describe('Test of Gao on Trello board', () => {
+describe('Test on Trello board', () => {
 
     //This board was created before manually through the UI
     //those constants will be different for each user
-    const myKanbanBoard = 'Kanban board - CerebrumHub';
-    const myKanbanBoardUrl = 'https://trello.com/b/i6yPZ6Kn/kanban-board-cerebrumhub';
+    const myKanbanBoard = 'Gao Board';
+    const myKanbanBoardUrl = 'https://trello.com/b/5mqsWnW0/gao-board';
 
     beforeEach(() => {
         LoginPage.openTrelloLoginPage();
