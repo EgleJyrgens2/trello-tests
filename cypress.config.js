@@ -11,7 +11,7 @@ module.exports = defineConfig({
   env: {
     apiKey: 'Paste your api key here',
     apiToken: 'Paste you token here',
-    email: 'liroh61536@bitvoo.com',
-    password: 'Test4321!',
+    email: 'trelloworkshop2023@gmail.com',
+    password: '!Trelloworkshop2023',
   }
 });
