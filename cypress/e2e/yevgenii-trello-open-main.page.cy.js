@@ -22,7 +22,22 @@ describe('Test on Trello board', () => {
         BoardPage.boardUrlIsCorrect(myKanbanBoardUrl);
     });
 
-    it.skip('Some more tests', () => {
-       //add more tests
+    it('Changing workshop visibility', () => {
+       cy.get('#permission-level').click();
+       cy.contains('Private').click();
+       cy.get('#permission-level').should('contain', 'Private');
+       cy.get('#permission-level').click();
+       cy.get('.pop-over-content').contains('Workspace').click();
+       cy.get('#permission-level').should('contain', 'Workspace');
+    });
+
+    it('Change background color', () => {
+        cy.get('[aria-label="Show menu"]'); //.click();
+        cy.get('.board-menu-content-frame').contains('Change background').click();
+        cy.get('.board-menu-content-frame').contains('Colors').click();
+        cy.get('.image').eq(0).click(); //changing to blue
+        //cy.get('.image').should('have.css', 'color').should('contain', 'rgb(23, 43, 77)').click();
+        cy.get('[title="Close the board menu.').click();
+        cy.get('#board').should('have.css', 'color').should('contain', 'rgb(23, 43, 77)');
     });
 });
