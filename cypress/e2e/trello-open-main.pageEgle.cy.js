@@ -1,5 +1,5 @@
 import EgleBoardPage from "../pages/EgleBoardPage";
-import Boards from "../pages/EgleBoards";
+import EgleBoards from "../pages/EgleBoards";
 import LoginPage from "../pages/LoginPage";
 
 describe('Test on Trello board', () => {
@@ -11,16 +11,16 @@ describe('Test on Trello board', () => {
 
 
     beforeEach(() => {
-        LoginPage.openTrelloLoginPage();
+        //LoginPage.openTrelloLoginPage();
 
         //this information is kept in file cypress.congig.js, block 'env'
         LoginPage.loginWithUsernameAndPassword(Cypress.env('email'), Cypress.env('password'));
-        Boards.boardsViewShouldBeVisible();
-        Boards.openBoardByName(myKanbanBoard);
+        EgleBoards.boardsViewShouldBeVisible();
+        EgleBoards.openBoardByName(myKanbanBoard);
     });
 
     it.skip('Checks that specific Trello board is open', () => {
-        BoardPage.boardUrlIsCorrect(myKanbanBoardUrl);
+        EgleBoardPage.boardUrlIsCorrect(myKanbanBoardUrl);
     });
 
     it.skip('Hide menu bar on the left (minimize)', () => {
@@ -53,6 +53,45 @@ describe('Test on Trello board', () => {
 
     it('Create new list', () => {
         const name = "My new list";
+
+        LoginPage.openTrelloLoginPage();
         EgleBoardPage.createNewList(name);
     });
+    
+    it('Add 3 cards into list', () => {
+        const cardname1 = "Alabama";
+        const cardname2 = "X-games";
+        const cardname3 = "Banana";
+
+        EgleBoardPage.addNewCardIntoList1(cardname1);
+        EgleBoardPage.addNewCardIntoList2(cardname2);
+        EgleBoardPage.addNewCardIntoList3(cardname3);
+        cy.get('.list-card-title').should('have.length', 3);
+        
+    });
+
+    it('Sort cards alphabetically', () => {
+        const cardname1 = "Alabama";
+        const cardname2 = "X-games";
+        const cardname3 = "Banana";
+
+        EgleBoardPage.sortCardsAlphabetically(cardname1, cardname2, cardname3);
+    });
+
+    it('Sort cards by Date (newest first)', () => {
+        const cardname1 = "Alabama";
+        const cardname2 = "X-games";
+        const cardname3 = "Banana";
+
+        EgleBoardPage.sortCardsByNewestDate(cardname1, cardname2, cardname3);
+    });
+
+    it('Sort cards by Date (oldest first)', () => {
+        const cardname1 = "Alabama";
+        const cardname2 = "X-games";
+        const cardname3 = "Banana";
+
+        EgleBoardPage.sortCardsByOldestDate(cardname1, cardname2, cardname3);
+    });
+
 });
