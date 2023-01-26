@@ -11,7 +11,7 @@ describe('Test on Trello board', () => {
 
 
     beforeEach(() => {
-        //LoginPage.openTrelloLoginPage();
+        LoginPage.openTrelloLoginPage();
 
         //this information is kept in file cypress.congig.js, block 'env'
         LoginPage.loginWithUsernameAndPassword(Cypress.env('email'), Cypress.env('password'));
@@ -54,7 +54,6 @@ describe('Test on Trello board', () => {
     it('Create new list', () => {
         const name = "My new list";
 
-        LoginPage.openTrelloLoginPage();
         EgleBoardPage.createNewList(name);
     });
     
