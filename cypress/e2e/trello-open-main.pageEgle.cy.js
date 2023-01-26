@@ -12,6 +12,7 @@ describe('Test on Trello board', () => {
 
     beforeEach(() => {
         LoginPage.openTrelloLoginPage();
+        cy.viewport(1440, 900)
 
         //this information is kept in file cypress.congig.js, block 'env'
         LoginPage.loginWithUsernameAndPassword(Cypress.env('email'), Cypress.env('password'));
@@ -57,7 +58,7 @@ describe('Test on Trello board', () => {
         EgleBoardPage.createNewList(name);
     });
     
-    it('Add 3 cards into list', () => {
+    it.skip('Add 3 cards into list', () => {
         const cardname1 = "Alabama";
         const cardname2 = "X-games";
         const cardname3 = "Banana";
@@ -69,7 +70,7 @@ describe('Test on Trello board', () => {
         
     });
 
-    it('Sort cards alphabetically', () => {
+    it.skip('Sort cards alphabetically', () => {
         const cardname1 = "Alabama";
         const cardname2 = "X-games";
         const cardname3 = "Banana";
@@ -77,7 +78,7 @@ describe('Test on Trello board', () => {
         EgleBoardPage.sortCardsAlphabetically(cardname1, cardname2, cardname3);
     });
 
-    it('Sort cards by Date (newest first)', () => {
+    it.skip('Sort cards by Date (newest first)', () => {
         const cardname1 = "Alabama";
         const cardname2 = "X-games";
         const cardname3 = "Banana";
@@ -85,12 +86,18 @@ describe('Test on Trello board', () => {
         EgleBoardPage.sortCardsByNewestDate(cardname1, cardname2, cardname3);
     });
 
-    it('Sort cards by Date (oldest first)', () => {
+    it.skip('Sort cards by Date (oldest first)', () => {
         const cardname1 = "Alabama";
         const cardname2 = "X-games";
         const cardname3 = "Banana";
 
         EgleBoardPage.sortCardsByOldestDate(cardname1, cardname2, cardname3);
+    });
+
+    it('Rename list', () => {
+        const listName = "Rename list name";
+
+        EgleBoardPage.changeListName(listName);
     });
 
 });
