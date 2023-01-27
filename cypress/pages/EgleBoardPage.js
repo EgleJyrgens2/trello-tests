@@ -7,7 +7,7 @@ class BoardPage {
       this.list4AddButton = ':nth-child(4) > .list > .card-composer-container > .open-card-composer';
       this.cardTextArea = '.list-card-composer-textarea';
       this.fourthList = '#board > :nth-child(4)'
-      this.fourthListMenuButton = ':nth-child(4) > .list > .list-header > .list-header-extras > .list-header-extras-menu';
+      this.listMenuButton = '.list-header-extras-menu';
       this.sortCardByButton = '.js-sort-cards';
       this.sortCardByNameButton = '.js-sort-by-card-name';
       this.sortingSuccessModal = '.rITN5tmguRbI3Z';
@@ -17,6 +17,12 @@ class BoardPage {
       this.cardTitleList = '.list-card-title';
       this.fourthListName = ':nth-child(4) > .list > .list-header > .list-header-target'
       this.fourthListNameInput = 'list-header-name mod-list-name js-list-name-input'
+      this.fourthListTab = '[style=""] > .list > .list-header > .list-header-target'
+      this.archiveButton = '.js-close-list';
+      this.listHeader = '.list-header-target';
+      this.boardCanvas = '.board-canvas';
+      this.copyListButton = '.js-copy-list';
+      this.listAddName = '.js-autofocus';
     }
 
     boardUrlIsCorrect(url) {
@@ -53,7 +59,7 @@ class BoardPage {
     }
 
     sortCardsAlphabetically(cardname1, cardname2, cardname3){
-        cy.get(this.fourthListMenuButton).click();
+        cy.get(this.listMenuButton).last().click();
         cy.get(this.sortCardByButton).click();
         cy.get(this.sortCardByNameButton).click();
         cy.get(this.sortingSuccessModal).contains('Successfully sorted list').should('be.visible');
@@ -64,7 +70,7 @@ class BoardPage {
     }
 
     sortCardsByNewestDate(cardname1, cardname2, cardname3){
-        cy.get(this.fourthListMenuButton).click();
+        cy.get(this.listMenuButton).last().click();
         cy.get(this.sortCardByButton).click();
         cy.get(this.sortCardByDateNewest).click();
         cy.get(this.sortingSuccessModal).contains('Successfully sorted list').should('be.visible');
@@ -74,7 +80,7 @@ class BoardPage {
     }
 
     sortCardsByOldestDate(cardname1, cardname2, cardname3){
-        cy.get(this.fourthListMenuButton).click();
+        cy.get(this.listMenuButton).last().click();
         cy.get(this.sortCardByButton).click();
         cy.get(this.sortCardByDateOldest).click();
         cy.get(this.sortingSuccessModal).contains('Successfully sorted list').should('be.visible');
@@ -83,11 +89,28 @@ class BoardPage {
         cy.get(this.cardTitleList).eq(2).should('contain', cardname3);
     }
 
-    changeListName(listName){
+    renameList(listName){
         cy.get(this.fourthListName).type(listName + '{enter}');
         cy.get(this.boardEmptySpace).click();
         cy.get(this.fourthList).should('contain', listName);
     }
+
+    changeListPosition(){
+        //cy.get(this.fourthList)
+    }
+
+    archiveList(listName){
+        cy.get(this.listMenuButton).last().click();
+        cy.get(this.archiveButton).click();
+        cy.get(this.boardCanvas).should('not.contain', listName);
+    }
+    
+    copyList(listName){
+        cy.get(this.listMenuButton).last().click();
+        cy.get(this.copyListButton).type(listName + '{enter}');
+        cy.get(this.boardCanvas).should('contain', listName);
+    }
+
 }
 
 export default new BoardPage()

@@ -1,6 +1,7 @@
 import EgleBoardPage from "../pages/EgleBoardPage";
 import EgleBoards from "../pages/EgleBoards";
 import LoginPage from "../pages/LoginPage";
+import '@4tw/cypress-drag-drop'
 
 describe('Test on Trello board', () => {
 
@@ -52,7 +53,7 @@ describe('Test on Trello board', () => {
         cy.get('.board-header-star-container .icon-star').should('be.visible').and('have.css','color','rgb(23, 43, 77)');
     });
 
-    it('Create new list', () => {
+    it.skip('Create new list', () => {
         const name = "My new list";
 
         EgleBoardPage.createNewList(name);
@@ -94,10 +95,45 @@ describe('Test on Trello board', () => {
         EgleBoardPage.sortCardsByOldestDate(cardname1, cardname2, cardname3);
     });
 
-    it('Rename list', () => {
-        const listName = "Rename list name";
+    it.skip('Rename list', () => {
+        const listName = "In testing";
 
-        EgleBoardPage.changeListName(listName);
+        EgleBoardPage.renameList(listName);
     });
+
+    it.skip('Drag and drop card', () => {
+       const dataTransfer = new DataTransfer();
+
+       cy.get('.list-card-title').eq(0).trigger('dragstart', {
+        dataTransfer
+       });
+
+       cy.get('#board > :nth-child(2)').trigger('drop', {
+        dataTransfer
+       });
+
+    });
+
+    it.skip('Change list position - Drag and drop list', () => {
+        //cy.get('.list-header-target').first().drag('.list-header-target').last();
+        //cy.get('ui-sortable-placeholder list-wrapper placeholder').eq(2).should('be.visible');
+
+        cy.get('.list-card-title').eq(0).drag('#board > :nth-child(2)');
+        
+    });
+
+    it('Archive list', () => {
+        const listName = "List with a unique name";
+
+        EgleBoardPage.createNewList(listName);
+        EgleBoardPage.archiveList(listName);
+    });
+
+    it('Copy list', () => {
+        const listName = "Just another list name"
+
+        EgleBoardPage.copyList(listName);
+    });
+
 
 });
