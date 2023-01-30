@@ -1,5 +1,5 @@
 import BoardPage from "../pages/BoardPageGao";
-import Boards from "../pages/Boards";
+import Boards from "../pages/AnneBoards";
 import LoginPage from "../pages/LoginPage";
 
 describe('Test on Trello board', () => {
@@ -59,5 +59,46 @@ describe('Test on Trello board', () => {
         BoardPage.changeBoardBackgroundColor(number);
         cy.get('.image').eq(2).should('have.attr', 'style', 'background-color: rgb(81, 152, 57);');
         cy.get('#trello-root').should('have.attr', 'style', 'background-color: rgb(81, 152, 57);');
+    });
+
+    it('Archive a list', () => {
+        const listTitle = 'List for test';
+        BoardPage.createANewList(listTitle);
+        BoardPage.archiveAList(listTitle);
+    });
+
+    it('Change the position of the list "In review" in the columns', () => {
+        BoardPage.changeInReviewListPosition();
+    });
+
+    it('Rename a list', () => {
+        const listTitle1 = 'Backlog';
+        const listTitle2 = 'To do';
+        BoardPage.renameAList(listTitle1, listTitle2);
+    });
+
+    it('Copy a list', () => {
+        const listTitle1 = 'Done';
+        const listTitle2 = 'Cancelled';
+        BoardPage.copyAList(listTitle1, listTitle2);
+    });
+
+    it('Sort a list by card name (alphabetically)', () => {
+        const listTitle = 'A new list'
+        const cardTitle1 = 'Alisa';
+        const cardTitle2 = 'Xiaomi';
+        const cardTitle3 = 'Bob';
+        BoardPage.createANewList(listTitle);
+        BoardPage.sortListCardsByName(listTitle, cardTitle1, cardTitle2, cardTitle3);
+    });
+
+    it('Sort a list by date created (newest first)', () => {
+        const listTitle = 'A new list'
+        BoardPage.sortListCardsByDateNewestFirst(listTitle);
+    });
+
+    it('Sort a list by date created (oldest first)', () => {
+        const listTitle = 'A new list'
+        BoardPage.sortListCardsByDateOldestFirst(listTitle)
     });
 });
