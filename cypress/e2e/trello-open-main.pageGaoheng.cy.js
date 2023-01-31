@@ -1,5 +1,5 @@
 import BoardPage from "../pages/BoardPageGao";
-import Boards from "../pages/AnneBoards";
+import Boards from "../pages/BoardsGao";
 import LoginPage from "../pages/LoginPage";
 
 describe('Test on Trello board', () => {

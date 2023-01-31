@@ -1,5 +1,5 @@
 import BoardPage from "../pages/BoardPageGao";
-import Boards from "../pages/AnneBoards";
+import Boards from "../pages/BoardsGao";
 import LoginPage from "../pages/LoginPage";
 
 describe('Test on Trello board', () => {
@@ -44,5 +44,22 @@ describe('Test on Trello board', () => {
         // cy.contains('textarea', 'Backlog').parent().parent().within(() => {
         //     cy.get('.list-header-extras-limit-badge').should('not.be.visible');
         // });
+    });
+
+    it('Create cards for sorting', () => {
+        cy.contains('textarea', 'List for sorting cards').parent().parent().within(() => {
+            cy.get('.js-add-a-card').click();
+            cy.get('.list-card-composer-textarea').type('Anne{enter}');
+            cy.get('.list-card-composer-textarea').type('X-Ray{enter}');
+            cy.get('.list-card-composer-textarea').type('Bernard{enter}');
+            cy.get('.js-cancel').click();
+        });
+    });
+    it.only('Sort list by card names', () => {
+        cy.contains('textarea', 'List for sorting cards').parent().parent().within(() => {
+            cy.get('.list-header-extras-menu').click();
+        });
+        cy.get('.js-sort-cards').click();
+        cy.get('.js-sort-by-card-name').click();
     });
 });
