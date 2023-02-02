@@ -103,6 +103,7 @@ class BoardPage {
         cy.get(this.listMenuButton).last().click();
         cy.get(this.archiveButton).click();
         cy.get(this.boardCanvas).should('not.contain', listName);
+
     }
     
     copyList(listName){

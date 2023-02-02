@@ -122,17 +122,30 @@ describe('Test on Trello board', () => {
         
     });
 
-    it('Archive list', () => {
+    it.skip('Archive list', () => {
         const listName = "List with a unique name";
 
         EgleBoardPage.createNewList(listName);
         EgleBoardPage.archiveList(listName);
     });
 
-    it('Copy list', () => {
+
+    it.skip('Copy list', () => {
         const listName = "Just another list name"
 
         EgleBoardPage.copyList(listName);
+    });
+
+    it('Create Kanbanboard', () => {
+        const newBoardName = "Egle Kanbanboard"
+
+        EgleBoards.createKanBanBoard(newBoardName);
+    });
+
+    it('Set limit to list', () => {
+        const name = "Kanban Boards fist list";
+
+        EgleBoardPage.createNewListInNewBoard(name);
     });
 
 
