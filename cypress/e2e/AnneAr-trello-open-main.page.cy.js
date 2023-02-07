@@ -139,34 +139,25 @@ describe('Test on Trello board', () => {
         cy.contains('textarea', 'List for actions with cards').parent().parent().within(() => {
             cy.contains('Anne kaart').click();
         });
-        cy.get('.card-detail-window .js-list-actions .mod-comment-type').within(() => {
-            //cy.get('.comment-frame').within(() => {    
+        cy.get('.card-detail-window .js-list-actions .mod-comment-type').within(() => {   
             cy.contains('.current-comment', 'Kommenteerin täiega').should('be.visible');
             cy.get('a.js-edit-action').click();
             cy.contains('textarea', 'Kommenteerin täiega').clear().type('Muutsin kommentaari');
             cy.get('.js-save-edit').click();
         });
     });
-    it.only('Actions with card details: delete comment', () => {
+
+    it('Actions with card details: delete comment', () => {
         cy.contains('textarea', 'List for actions with cards').parent().parent().within(() => {
             cy.contains('Anne kaart').click();
         });
         cy.get('.card-detail-window .js-list-actions .mod-comment-type').within(() => {
             cy.contains('.current-comment', 'Muutsin kommentaari').should('be.visible');
-            cy.get('.js-confirm-delete-action').click;
-            cy.contains('.pop-over-header-title', 'Delete comment?').within(() => {
-                cy.get('.js-confirm').click();
-                //cy.contains('.current-comment', 'Kommenteerin täiega').last('.js-edit-action', 'Edit').click();
-                //cy.contains('.current-comment','Kommenteerin niisama veel').next('.js-edit-action').click();
-                //cy.contains('.comment-box-input','Kommenteerin niisama veel').next('.js-edit-action').click();
-                //cy.get('.js-edit-action').click();
-                //cy.get('.js-edit-desc-button').click();
-                //cy.get('.js-description-draft').clear();
-                //cy.get('.js-save-edit').click();
-                //cy.get('.dialog-close-button').click();
-                //});
-            });
-            //cy.get('.js-close-window').click();
+            cy.get('.js-confirm-delete-action').click();
         });
+        cy.get('.pop-over.is-shown').should('be.visible').within(() => {
+            cy.get('.js-confirm').click();
+        });
+        cy.get('.js-close-window').click();
     });
 });
