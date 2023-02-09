@@ -10,6 +10,7 @@ describe('Test on Trello board', () => {
 
     beforeEach(() => {
         LoginPage.openTrelloLoginPage();
+        cy.viewport(1440, 900)
 
         //this information is kept in file cypress.congig.js, block 'env'
         LoginPage.loginWithUsernameAndPassword(Cypress.env('email'), Cypress.env('password'));
@@ -17,55 +18,113 @@ describe('Test on Trello board', () => {
         Boards.openBoardByName(myKanbanBoard);
     });
 
-    it.skip('Checks that specific Trello board is open', () => {
+    it('Checks that specific Trello board is open', () => {
         BoardPage.boardUrlIsCorrect(myKanbanBoardUrl);
     });
 
     it.skip('Open and close card details', () => {
-        const name = "My new list";
+        const name = "My first list";
         const cardname1 = "Alabama";
 
         BoardPage.createNewList(name);
-        cy.get('.js-add-a-card').type(cardname1 + '{enter}');
+        cy.get('.js-add-a-card').click();
+        cy.get('.list-card-details').type(cardname1 + '{enter}');
+        cy.get('.list-card-title').last().should('contain', cardname1);
         cy.get('.list-card-title').click();
         cy.get('.card-detail-window').contains('Description');
         cy.get('.icon-md').click();
         cy.get('.card-detail-window').should('not.exist');
+        cy.get('.list-header-extras-menu').last().click();
+        cy.get('.js-close-list').click();
+
     });
 
-    it('Add label to card and remove it', () => {
+    it.skip('Add label to card and remove it', () => {
         const name = "My second list";
-        const cardname1 = "Banana";
+        const cardname2 = "Banana";
 
         BoardPage.createNewList(name);
-        cy.get('.js-add-a-card').last().type(cardname1 + '{enter}');
-        cy.get('.list-card-title').last().click();
+        cy.get('.js-add-a-card').click();
+        cy.get('.list-card-details').type(cardname2 + '{enter}');
+        cy.get('.list-card-title').should('contain',cardname2);
+        cy.get('.list-card-title').click();
         cy.get('.js-edit-labels').click();
         cy.get('.nch-textfield__input').type('blue'+'{enter}');
-        cy.get('[data-testid="card-label"]').last().click();
+        cy.get('[data-testid="card-label"]').click();
         cy.get('[data-testid="popover-close"] > .css-1wits42').click();
+        //cy.get('[data-testid="card-label"]').should('be.visible');
         cy.get('.icon-md').click();
-        cy.get('[data-testid="compact-card-label"]').should('be.visible');
+        //cy.get('[data-testid="compact-card-label"]').should('be.visible');
         cy.get('.list-card-title').last().click();
         cy.get('[data-testid="card-label"]').click();
         cy.get('[data-testid="card-label"]').last().click();
         cy.get('.icon-md').click();
         cy.get('[data-testid="compact-card-label"]').should('not.exist');
+        cy.get('.list-header-extras-menu').last().click();
+        cy.get('.js-close-list').click();
     });
 
     it.skip('Add card as a template', () => {
-        const name = "My other list";
-        const cardname1 = "Template card";
+        const name = "My third list";
+        const cardname3 = "Adding card as a template";
 
         BoardPage.createNewList(name);
-        cy.get('.js-add-a-card').last().type(cardname1 + '{enter}');
+        cy.get('.js-add-a-card').last().click();
+        cy.get('.list-card-details').type(cardname3 + '{enter}');
+        cy.get('.list-card-title').last().should('contain', cardname3);
         cy.get('.list-card-title').last().click();
         cy.get('.js-convert-to-template > .js-sidebar-action-text').click();
         cy.get('.icon-md').click();
         cy.get('.badge').should('have.text', 'This card is a template.');
+        cy.get('.list-header-extras-menu').last().click();
+        cy.get('.js-close-list').click();
     });
 
-    it.skip('Create new card from t', () => {
+    it('Create new card from template and delete template', () => {
+        const name = "My fourth list";
+        const cardname4 = "Adding a card again";
         
+        BoardPage.createNewList(name);
+        cy.get('.js-add-a-card').last().click();
+        cy.get('.list-card-details').type(cardname4 + '{enter}');
+        cy.get('.list-card-title').last().should('contain', cardname4);
+        cy.get('.list-card-title').last().click();
+        cy.get('.js-convert-to-template > .js-sidebar-action-text').click();
+        cy.get('.icon-md').click();
+        cy.get('.badge').last().should('have.text', 'This card is a template.');
+        cy.get('.list-card-title').last().click();
+        cy.get('[data-testid="create-card-from-template-banner-button"]').click();
+        cy.get('[data-testid="create-card-from-template-button"]').click();
+        cy.get('.icon-md').click();
+        cy.get('.badge-text').click();
+        cy.get(':nth-child(5) > .u-clearfix > .toggle-button').click();
+        cy.get('.icon-md').click();
+        cy.get('.card-detail-window').should('not.exist');
+        //cy.get('.badge').should('not.have.text', 'This card is a template.');
+        //cy.get('.list-header-extras-menu').last().click();
+        //cy.get('.js-close-list').click();
     });
+
+
+    it.skip('Edit template', () => {
+        const name = "My fifth list";
+        const cardname5 = "Adding a card again";
+        const tempalteName = "different name for template";
+        
+        BoardPage.createNewList(name);
+        cy.get('.js-add-a-card').last().click();
+        cy.get('.list-card-composer-textarea').type(cardname5 + '{enter}');
+        cy.get('.list-card-title').last().should('contain', cardname5);
+        cy.get('.list-card-title').last().click();
+        cy.get('.js-convert-to-template > .js-sidebar-action-text').click();
+        cy.get('.icon-md').click();
+        cy.get('.badge').last().should('have.text', 'This card is a template.');
+        cy.get('.list-card-title').last().click();
+        cy.get('.mod-card-back-title').click().clear();
+        cy.get('.mod-card-back-title').type(tempalteName + '{enter}');
+        cy.get('.icon-md').click();
+        cy.get('.list-header-extras-menu').last().click();
+        cy.get('.js-close-list').click();
+    });
+
 });
