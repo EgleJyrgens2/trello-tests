@@ -146,7 +146,7 @@ describe('Test on Trello board', () => {
             cy.get('.js-save-edit').click();
         });
     });
-
+    
     it('Actions with card details: delete comment', () => {
         cy.contains('textarea', 'List for actions with cards').parent().parent().within(() => {
             cy.contains('Anne kaart').click();
