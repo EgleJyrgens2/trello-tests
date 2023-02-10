@@ -1,4 +1,4 @@
-class EgleBoards {
+class Boards {
     constructor() {
         this.boardsMainTitle = 'Most popular templates';
         this.addBoardButton = '.FwTZlPFZOdDHDe';
@@ -26,7 +26,8 @@ class EgleBoards {
         cy.get(this.createBoardSubmitButton).click();
     }
 
-    
+    setLimitToList
+
 }
 
-export default new EgleBoards()
+export default new Boards()

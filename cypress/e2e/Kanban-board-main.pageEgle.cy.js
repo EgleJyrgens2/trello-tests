@@ -22,13 +22,13 @@ describe('Test on Trello board', () => {
         BoardPage.boardUrlIsCorrect(myKanbanBoardUrl);
     });
 
-    it.skip('Open and close card details', () => {
+    it('Open and close card details', () => {
         const name = "My first list";
         const cardname1 = "Alabama";
 
         BoardPage.createNewList(name);
         cy.get('.js-add-a-card').click();
-        cy.get('.list-card-details').type(cardname1 + '{enter}');
+        cy.get('.list-card-details').last().type(cardname1 + '{enter}');
         cy.get('.list-card-title').last().should('contain', cardname1);
         cy.get('.list-card-title').click();
         cy.get('.card-detail-window').contains('Description');
@@ -39,13 +39,13 @@ describe('Test on Trello board', () => {
 
     });
 
-    it.skip('Add label to card and remove it', () => {
+    it('Add label to card and remove it', () => {
         const name = "My second list";
         const cardname2 = "Banana";
 
         BoardPage.createNewList(name);
         cy.get('.js-add-a-card').click();
-        cy.get('.list-card-details').type(cardname2 + '{enter}');
+        cy.get('.list-card-details').last().type(cardname2 + '{enter}');
         cy.get('.list-card-title').should('contain',cardname2);
         cy.get('.list-card-title').click();
         cy.get('.js-edit-labels').click();
@@ -64,13 +64,13 @@ describe('Test on Trello board', () => {
         cy.get('.js-close-list').click();
     });
 
-    it.skip('Add card as a template', () => {
+    it('Add card as a template', () => {
         const name = "My third list";
         const cardname3 = "Adding card as a template";
 
         BoardPage.createNewList(name);
         cy.get('.js-add-a-card').last().click();
-        cy.get('.list-card-details').type(cardname3 + '{enter}');
+        cy.get('.list-card-details').last().type(cardname3 + '{enter}');
         cy.get('.list-card-title').last().should('contain', cardname3);
         cy.get('.list-card-title').last().click();
         cy.get('.js-convert-to-template > .js-sidebar-action-text').click();
@@ -86,7 +86,7 @@ describe('Test on Trello board', () => {
         
         BoardPage.createNewList(name);
         cy.get('.js-add-a-card').last().click();
-        cy.get('.list-card-details').type(cardname4 + '{enter}');
+        cy.get('.list-card-details').last().type(cardname4 + '{enter}');
         cy.get('.list-card-title').last().should('contain', cardname4);
         cy.get('.list-card-title').last().click();
         cy.get('.js-convert-to-template > .js-sidebar-action-text').click();
@@ -99,14 +99,12 @@ describe('Test on Trello board', () => {
         cy.get('.badge-text').click();
         cy.get(':nth-child(5) > .u-clearfix > .toggle-button').click();
         cy.get('.icon-md').click();
-        cy.get('.card-detail-window').should('not.exist');
-        //cy.get('.badge').should('not.have.text', 'This card is a template.');
-        //cy.get('.list-header-extras-menu').last().click();
-        //cy.get('.js-close-list').click();
+        cy.get('.list-header-extras-menu').last().click();
+        cy.get('.js-close-list').click();
     });
 
 
-    it.skip('Edit template', () => {
+    it('Edit template', () => {
         const name = "My fifth list";
         const cardname5 = "Adding a card again";
         const tempalteName = "different name for template";

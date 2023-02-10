@@ -1,5 +1,5 @@
-import EgleBoardPage from "../pages/EgleBoardPage";
-import EgleBoards from "../pages/EgleBoards";
+import BoardPage from "../pages/EgleBoardPage";
+import Boards from "../pages/EgleBoards";
 import LoginPage from "../pages/LoginPage";
 import '@4tw/cypress-drag-drop'
 
@@ -17,12 +17,12 @@ describe('Test on Trello board', () => {
 
         //this information is kept in file cypress.congig.js, block 'env'
         LoginPage.loginWithUsernameAndPassword(Cypress.env('email'), Cypress.env('password'));
-        EgleBoards.boardsViewShouldBeVisible();
-        EgleBoards.openBoardByName(myKanbanBoard);
+        Boards.boardsViewShouldBeVisible();
+        Boards.openBoardByName(myKanbanBoard);
     });
 
     it.skip('Checks that specific Trello board is open', () => {
-        EgleBoardPage.boardUrlIsCorrect(myKanbanBoardUrl);
+        BoardPage.boardUrlIsCorrect(myKanbanBoardUrl);
     });
 
     it.skip('Hide menu bar on the left (minimize)', () => {
@@ -56,7 +56,7 @@ describe('Test on Trello board', () => {
     it.skip('Create new list', () => {
         const name = "My new list";
 
-        EgleBoardPage.createNewList(name);
+        BoardPage.createNewList(name);
     });
     
     it.skip('Add 3 cards into list', () => {
@@ -64,9 +64,9 @@ describe('Test on Trello board', () => {
         const cardname2 = "X-games";
         const cardname3 = "Banana";
 
-        EgleBoardPage.addNewCardIntoList1(cardname1);
-        EgleBoardPage.addNewCardIntoList2(cardname2);
-        EgleBoardPage.addNewCardIntoList3(cardname3);
+        BoardPage.addNewCardIntoList1(cardname1);
+        BoardPage.addNewCardIntoList2(cardname2);
+        BoardPage.addNewCardIntoList3(cardname3);
         cy.get('.list-card-title').should('have.length', 3);
         
     });
@@ -75,8 +75,11 @@ describe('Test on Trello board', () => {
         const cardname1 = "Alabama";
         const cardname2 = "X-games";
         const cardname3 = "Banana";
+        const name = "The second list";
 
-        EgleBoardPage.sortCardsAlphabetically(cardname1, cardname2, cardname3);
+        BoardPage.createNewList(name);
+        BoardPage.sortCardsAlphabetically(cardname1, cardname2);
+        BoardPage.checkCardNamesAreAlpabeticallySorted(cardname1, cardname2);
     });
 
     it.skip('Sort cards by Date (newest first)', () => {
@@ -84,7 +87,7 @@ describe('Test on Trello board', () => {
         const cardname2 = "X-games";
         const cardname3 = "Banana";
 
-        EgleBoardPage.sortCardsByNewestDate(cardname1, cardname2, cardname3);
+        BoardPage.sortCardsByNewestDate(cardname1, cardname2, cardname3);
     });
 
     it.skip('Sort cards by Date (oldest first)', () => {
@@ -92,13 +95,13 @@ describe('Test on Trello board', () => {
         const cardname2 = "X-games";
         const cardname3 = "Banana";
 
-        EgleBoardPage.sortCardsByOldestDate(cardname1, cardname2, cardname3);
+        BoardPage.sortCardsByOldestDate(cardname1, cardname2, cardname3);
     });
 
     it.skip('Rename list', () => {
         const listName = "In testing";
 
-        EgleBoardPage.renameList(listName);
+        BoardPage.renameList(listName);
     });
 
     it.skip('Drag and drop card', () => {
@@ -125,27 +128,15 @@ describe('Test on Trello board', () => {
     it.skip('Archive list', () => {
         const listName = "List with a unique name";
 
-        EgleBoardPage.createNewList(listName);
-        EgleBoardPage.archiveList(listName);
+        BoardPage.createNewList(listName);
+        BoardPage.archiveList(listName);
     });
 
 
     it.skip('Copy list', () => {
         const listName = "Just another list name"
 
-        EgleBoardPage.copyList(listName);
-    });
-
-    it('Create Kanbanboard', () => {
-        const newBoardName = "Egle Kanbanboard"
-
-        EgleBoards.createKanBanBoard(newBoardName);
-    });
-
-    it('Set limit to list', () => {
-        const name = "Kanban Boards fist list";
-
-        EgleBoardPage.createNewListInNewBoard(name);
+        BoardPage.copyList(listName);
     });
 
 

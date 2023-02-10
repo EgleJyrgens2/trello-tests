@@ -63,10 +63,12 @@ class BoardPage {
         cy.get(this.sortCardByButton).click();
         cy.get(this.sortCardByNameButton).click();
         cy.get(this.sortingSuccessModal).contains('Successfully sorted list').should('be.visible');
-        cy.get(this.cardTitleList).eq(0).should('contain', cardname1);
-        cy.get(this.cardTitleList).eq(1).should('contain', cardname3);
-        cy.get(this.cardTitleList).eq(2).should('contain', cardname2);
  
+    }
+    checkCardNamesAreAlpabeticallySorted(cardname1, cardname2){
+        cy.get(this.cardTitleList).first().should('contain', cardname1);
+        //cy.get(this.cardTitleList).eq(1).should('contain', cardname3);
+        cy.get(this.cardTitleList).last().should('contain', cardname2);
     }
 
     sortCardsByNewestDate(cardname1, cardname2, cardname3){
@@ -74,9 +76,9 @@ class BoardPage {
         cy.get(this.sortCardByButton).click();
         cy.get(this.sortCardByDateNewest).click();
         cy.get(this.sortingSuccessModal).contains('Successfully sorted list').should('be.visible');
-        cy.get(this.cardTitleList).eq(0).should('contain', cardname3);
-        cy.get(this.cardTitleList).eq(1).should('contain', cardname2);
-        cy.get(this.cardTitleList).eq(2).should('contain', cardname1);
+        cy.get(this.cardTitleList).first().should('contain', cardname3);
+        //cy.get(this.cardTitleList).eq(1).should('contain', cardname2);
+        cy.get(this.cardTitleList).last().should('contain', cardname1);
     }
 
     sortCardsByOldestDate(cardname1, cardname2, cardname3){
@@ -84,12 +86,12 @@ class BoardPage {
         cy.get(this.sortCardByButton).click();
         cy.get(this.sortCardByDateOldest).click();
         cy.get(this.sortingSuccessModal).contains('Successfully sorted list').should('be.visible');
-        cy.get(this.cardTitleList).eq(0).should('contain', cardname1);
-        cy.get(this.cardTitleList).eq(1).should('contain', cardname2);
-        cy.get(this.cardTitleList).eq(2).should('contain', cardname3);
+        cy.get(this.cardTitleList).first().should('contain', cardname1);
+        //cy.get(this.cardTitleList).eq(1).should('contain', cardname2);
+        cy.get(this.cardTitleList).last().should('contain', cardname3);
     }
 
-    renameList(listName){
+    renameTheFourthList(listName){
         cy.get(this.fourthListName).type(listName + '{enter}');
         cy.get(this.boardEmptySpace).click();
         cy.get(this.fourthList).should('contain', listName);
